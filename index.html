@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teste</title>
+  <link rel="stylesheet" href="./dist/summernote.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  <script src="./dist/summernote.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="txt"></div>
+      <button type="button" onclick="enviarEmail()" class="btn btn-primary">Enviar E-Mail</button>
+    </div>
+  </div>
+
+
+  <script>
+
+    var enviarEmail = function() {
+      $.ajax({
+        method: 'POST',
+        url: 'http://catini.org:3004/api/v1/email/send',
+        data: {
+          destinatario: 'guilherme@catini.org',
+          assunto: 'Teste',
+          mensagem: $('.txt').summernote('code')
+        }
+      }).done(function(ret){
+        alert('enviado!')
+      })
+    }
+
+    $('.txt').summernote({
+      height: 300,
+      tabsize: 2
+    });
+  </script>
+
+</body>
+</html>
